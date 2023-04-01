@@ -1,15 +1,17 @@
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Button,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import Box from "@mui/material/Box";
+import React from "react";
+import { Link } from 'react-router-dom';
 
-const Nav = () => {
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+
+export default function ButtonAppBar() {
   return (
-    <Box className="nav" sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="secondary">
         <Toolbar>
           <IconButton
@@ -21,12 +23,21 @@ const Nav = () => {
           >
             <MenuIcon />
           </IconButton>
-          <p>Home</p>
-          <Button color="inherit">Login</Button>
+          <Typography
+            className="home-button btn"
+            onClick={() => console.log("hi")}
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+            as={Link} to='/'
+          >
+            Home
+          </Typography>
+          {/* spacer */}
+          <Typography sx={{ flexGrow: 500 }}></Typography>
+          <Button className="btn" as={Link} to='/login' color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
     </Box>
   );
-};
-
-export default Nav;
+}
