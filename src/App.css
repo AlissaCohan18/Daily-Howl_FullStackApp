@@ -7,10 +7,14 @@
   color: white;
 }
 
-.main-photo {
+.redirect {
+  margin-top: 30px;
+}
+
+.home-photo {
   border: 1px solid #ddd;
   border-radius: 10%;
-  max-width: 12%;
+  max-width: 25%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   display: block;
   margin-left: auto;
@@ -18,6 +22,42 @@
   margin-top: 30px;
 }
 
-.redirect {
+.pictureCard {
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 30px;
+  text-align: center;
+}
+
+.wait-photo {
+  border: 1px solid #ddd;
+  border-radius: 10%;
+  width: 350px;
+  height: 350px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: inline;
+  background-color: red;
+}
+
+
+.main-photo {
+  border: 1px solid #ddd;
+  border-radius: 10%;
+  max-width: 45%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: inline;
+}
+
+.arrow {
+  color: rgb(163, 17, 163);
+}
+
+.arrow:hover {
+ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.memeContainer{
+  text-align: center;
 }
