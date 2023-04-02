@@ -11,18 +11,25 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Container, Button } from "@mui/material";
 
-export default function LoginForm() {
+export default function SingUpForm() {
+
   // Allow user to view or hide their password
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+
   return (
     <Container>
       <section>
-        <h1>Log In Now to get started!</h1>
+        <h1>Sign Up Now to get started!</h1>
       </section>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         <div>
+          <TextField
+            label="Username"
+            id="username"
+            sx={{ m: 1, width: "25ch" }}
+          />
           {/* TODO: add e-mail validation */}
           <TextField label="email" id="email" sx={{ m: 1, width: "25ch" }} />
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
@@ -51,12 +58,6 @@ export default function LoginForm() {
           </FormControl>
         </div>
       </Box>
-      <section className="redirect">
-      <p> Don't have an account yet?</p>
-      <Button className="btn" size="small" as={Link} to='/signup' variant="outlined" color="secondary">
-        Sign Up
-      </Button>
-      </section>
     </Container>
   );
 }

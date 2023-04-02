@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginForm from "./Components/LoginForm";
+import SignUpForm from "./Components/SignUpForm";
 import Nav from "./Components/Nav";
 import HomePage from "./Components/HomePage";
 import Beagle from "./beagle.jpeg";
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/login" element={<LoginForm />} />
+            <Route exact path="/signup" element={<SignUpForm />} />
           </Routes>
           <img src={Beagle} className="main-photo" alt="dog" />
         </header>

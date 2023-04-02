@@ -36,6 +36,7 @@ export default function ButtonAppBar() {
           {/* spacer */}
           <Typography sx={{ flexGrow: 500 }}></Typography>
           <Button className="btn" as={Link} to='/login' color="inherit">Login</Button>
+          <Button className="btn" as={Link} to='/signup' color="inherit">Sign Up</Button>
         </Toolbar>
       </AppBar>
     </Box>
