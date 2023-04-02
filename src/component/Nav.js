@@ -25,7 +25,6 @@ export default function ButtonAppBar() {
           </IconButton>
           <Typography
             className="home-button btn"
-            onClick={() => console.log("hi")}
             variant="h6"
             component="div"
             sx={{ flexGrow: 1 }}
