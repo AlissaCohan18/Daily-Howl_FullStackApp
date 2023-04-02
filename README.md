@@ -22,7 +22,7 @@ coming soon...
 
 ## Screenshot
 coming soon...
-![](/public/favicon2.png)
+![](/client//public/favicon2.png)
 
 
 
