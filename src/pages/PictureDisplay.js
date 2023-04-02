@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Photo from "../component/Photo";
 import Beagle from "../beagle.jpeg";
+import MemeForm from "../component/MemeForm";
 
 const SearchPictures = () => {
   const [dogData, setDogData] = useState(null);
   const [picturePosition, setPicturePosition] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const arrowBackHandler = () => {
     console.log("back click");
@@ -28,6 +30,7 @@ const SearchPictures = () => {
       .then((response) => response.json())
       .then((data) => {
         setDogData(data);
+        setIsLoading(false);
       })
       .catch((e) => {
         console.log(e);
@@ -39,8 +42,8 @@ const SearchPictures = () => {
   return (
     <div>
       <h1>Search Pup Pics!</h1>
-
-      {dogData && (
+      {isLoading && <p>...Loading</p>}
+      {dogData && (<div>
         <Photo
           props={dogData[picturePosition].url}
           isFirstImage={picturePosition === 0 ? false : true}
@@ -48,7 +51,10 @@ const SearchPictures = () => {
           onBckClick={arrowBackHandler}
           onFwdClick={arrowForwardHandler}
         />
+        <MemeForm />
+        </div>
       )}
+     
     </div>
   );
 };
