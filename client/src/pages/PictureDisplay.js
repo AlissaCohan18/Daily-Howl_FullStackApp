@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Photo from "../component/Photo";
-import Beagle from "../beagle.jpeg";
 import MemeForm from "../component/MemeForm";
 
 const SearchPictures = () => {
