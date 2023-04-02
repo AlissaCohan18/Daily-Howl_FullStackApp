@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Button from "@mui/material/IconButton";
 
 const Photo = ({
   props,
@@ -9,6 +10,7 @@ const Photo = ({
   onBckClick,
   isFirstImage,
   isLastImage,
+  apiCall
 }) => {
   return (
     <div className="pictureCard">
@@ -19,6 +21,7 @@ const Photo = ({
       {isLastImage && (
         <ArrowForwardIosIcon onClick={onFwdClick} className="arrow" />
       )}
+    {!isLastImage && <Button className="arrow" size="small" color="secondary" onClick={apiCall} > Next Set of PIctures</Button>}
     </div>
   );
 };
