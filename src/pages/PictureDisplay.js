@@ -26,6 +26,7 @@ const SearchPictures = () => {
     process.env.REACT_APP_DOG_API_URL + process.env.REACT_APP_DOG_API_KEY;
 
   const showPicture = () => {
+    setPicturePosition(0)
     fetch(api)
       .then((response) => response.json())
       .then((data) => {
@@ -50,6 +51,7 @@ const SearchPictures = () => {
           isLastImage={picturePosition === 9 ? false : true}
           onBckClick={arrowBackHandler}
           onFwdClick={arrowForwardHandler}
+          apiCall={showPicture}
         />
         <MemeForm />
         </div>
