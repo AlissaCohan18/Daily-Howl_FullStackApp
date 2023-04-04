@@ -64,6 +64,10 @@ const MemeSchema = new Schema({
     required: true,
     maxLength: 100,
   },
+  memeUrl: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
