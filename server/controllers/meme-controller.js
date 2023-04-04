@@ -15,9 +15,9 @@ const memeController = {
   getSingleMeme({ params }, res) {
     Meme.findOne({ _id: params.memeId })
       .then((dbData) => {
-        // If no Thought is found, send 404
+        // If no meme is found, send 404
         if (!dbData) {
-          res.status(404).json({ message: "No Thought found with this id!" });
+          res.status(404).json({ message: "No Meme found with this id!" });
           return;
         }
         res.json(dbData);
@@ -28,14 +28,14 @@ const memeController = {
       });
   },
 
-  //create Meme   (POST /api/thoughts)
+  //create Meme   (POST /api/memes)
   createMeme({ body, params }, res) {
     Meme.create(body)
       .then(({ _id }) => {
         return User.findOneAndUpdate(
           { _id: params.userId },
           { $push: { memes: _id } },
-          //receive back the User info with the updated array/new thought
+          //receive back the User info with the updated array/new meme
           { new: true }
         );
       })
@@ -52,7 +52,7 @@ const memeController = {
       .then((dbData) => {
         // If no Meme is found, send 404
         if (!dbData) {
-          res.status(404).json({ message: "No Thought found with this id!" });
+          res.status(404).json({ message: "No Meme found with this id!" });
           return;
         }
         res.json(dbData);
@@ -103,7 +103,7 @@ const memeController = {
       .catch((err) => res.json(err));
   },
 
-  //Remove a reaction by its ID    (DELETE /api/thoughts/:thoughtId/:reactionId)
+  //Remove a like by its ID    (DELETE /api/memes/:memeId/:likeId)
   removeLike({ params }, res) {
     Meme.findOneAndUpdate(
       { _id: params.memeId },
@@ -131,7 +131,7 @@ const memeController = {
       .catch((err) => res.json(err));
   },
 
-  //Remove a reaction by its ID    (DELETE /api/thoughts/:thoughtId/:reactionId)
+  //Remove a dislike by its ID    (DELETE /api/memes/:memeId/:dislikeId)
   removeDislike({ params }, res) {
     Meme.findOneAndUpdate(
       { _id: params.memeId },
