@@ -86,10 +86,10 @@ const memeController = {
       .catch((err) => res.json(err));
   },
 
-  //Create a like to a Meme, stored in that meme's like array  (POST /api/memes/:memeId/like)
+  //Create a like to a Meme, stored in that meme's like array  (PUT /api/memes/:memeId/like)
   addLike({ params, body }, res) {
     Meme.findOneAndUpdate(
-      { _id: params.memetId },
+      { _id: params.memeId },
       { $push: { likes: body } },
       { new: true, runValidators: true }
     )
@@ -114,10 +114,10 @@ const memeController = {
       .catch((err) => res.json(err));
   },
 
-  //Create a dislike to a Meme, stored in that meme's dislike array  (POST /api/memes/:memeId/dislike)
+  //Create a dislike to a Meme, stored in that meme's dislike array  (PUT /api/memes/:memeId/dislike)
   addDislike({ params, body }, res) {
     Meme.findOneAndUpdate(
-      { _id: params.memetId },
+      { _id: params.memeId },
       { $push: { dislikes: body } },
       { new: true, runValidators: true }
     )
