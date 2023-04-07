@@ -22,7 +22,7 @@ const UserSchema = new Schema({
       ref: "Meme",
     },
   ],
-  friends: [
+  followers: [
     {
       type: Schema.Types.ObjectId,
       ref: "User",
@@ -37,9 +37,9 @@ const UserSchema = new Schema({
 }
 );
 
-// get total count of friends
-UserSchema.virtual("friendCount").get(function () {
-   return this.friends.length;
+// get total count of followers
+UserSchema.virtual("followerCount").get(function () {
+   return this.followers.length;
 });
 
 // create the User model using the UserSchema
