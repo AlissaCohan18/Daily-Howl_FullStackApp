@@ -65,11 +65,11 @@ const userController = {
       .catch((err) => res.status(400).json(err));
   },
 
-  //Add new friend to user's friend list (POST /api/users/:userId/friend/:friendId)
-  addFriend({ params }, res) {
+  //Add new follower to user's follower list (POST /api/users/:userId/follower/:followerId)
+  addFollower({ params }, res) {
     User.findOneAndUpdate(
       { _id: params.userId },
-      { $push: { friends: params.friendId } },
+      { $push: { followers: params.followerId } },
       { new: true, runValidators: true }
     )
       .then((dbData) => {
@@ -82,11 +82,11 @@ const userController = {
       .catch((err) => res.json(err));
   },
 
-  //Remove a friend from a user's friend list (DELETE /api/users/:userId/friend/:friendId)
-  removeFriend({ params }, res) {
+  //Remove a follower from a user's follower list (DELETE /api/users/:userId/follower/:followerId)
+  removeFollower({ params }, res) {
     User.findOneAndUpdate(
       { _id: params.userId },
-      { $pull: { friends: params.friendId } },
+      { $pull: { followers: params.followerId } },
       { new: true, runValidators: true }
     )
       .then((dbData) => {
