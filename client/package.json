@@ -1,4 +1,4 @@
-{
+{ "proxy": "http://localhost:3001",
   "name": "daily-howl",
   "version": "0.1.0",
   "private": true,
