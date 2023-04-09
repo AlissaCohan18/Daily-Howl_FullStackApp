@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-
+import { useLogout } from '../hooks/useLogOut'
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,7 +9,14 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
-export default function ButtonAppBar() {
+const Navbar = () => {
+
+  const { logout } = useLogout()
+
+  const handleClick = () => {
+    logout()
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="secondary">
@@ -36,8 +43,11 @@ export default function ButtonAppBar() {
           <Typography sx={{ flexGrow: 500 }}></Typography>
           <Button className="btn" as={Link} to='/login' color="inherit">Login</Button>
           <Button className="btn" as={Link} to='/signup' color="inherit">Sign Up</Button>
+          <Button onClick={handleClick} className="btn" as={Link} to='/' color="inherit">Log Out</Button>
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
+
+export default Navbar;

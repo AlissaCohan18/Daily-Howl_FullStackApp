@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useAuthContext } from '../hooks/useAuthContext'
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -19,6 +20,7 @@ export default function SingUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const { dispatch } = useAuthContext()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +44,12 @@ export default function SingUpForm() {
       setUsername("");
       setEmail("");
       setPassword("");
+
+      // save the user to local storage
+      localStorage.setItem('user', JSON.stringify(json))
+
+      // update the auth context
+      dispatch({type: 'LOGIN', payload: json})
     }
   };
 
