@@ -97,7 +97,6 @@ export default function SingUpForm() {
             >
               Submit
             </Button>
-            {/* TODO: bug: error not appearing on screen */}
           </FormControl>
         </div>
         {error && <div>{error}</div>}
