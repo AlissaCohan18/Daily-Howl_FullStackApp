@@ -28,13 +28,6 @@ const userController = {
       });
   },
 
-  //create User   (POST /api/users)
-  createUser({ body }, res) {
-    User.create(body)
-      .then((dbData) => res.json(dbData))
-      .catch((err) => res.status(400).json(err));
-  },
-
   //Update a user by ID (PUT /api/users/:id)
   updateUser({ params, body }, res) {
     //"runValidators:true" on PUT to ensure validation is ran on updates
