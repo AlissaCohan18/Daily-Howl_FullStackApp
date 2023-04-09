@@ -3,12 +3,13 @@ const router = require("express").Router();
 const {
   getAllUsers,
   getUserById,
-  createUser,
   updateUser,
   deleteUser,
   addFollower,
   removeFollower,
 } = require("../../controllers/user-controller");
+const { createUser} = require ('../../controllers/signing-controller')
+
 
 // Set up routes at /api/users
 router
