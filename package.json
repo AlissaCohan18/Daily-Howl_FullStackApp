@@ -1,0 +1,23 @@
+{
+  "name": "daily-howl_fullstackapp",
+  "version": "1.0.0",
+  "description": "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlissaCohan18/Daily-Howl_FullStackApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlissaCohan18/Daily-Howl_FullStackApp/issues"
+  },
+  "homepage": "https://github.com/AlissaCohan18/Daily-Howl_FullStackApp#readme"
+}
