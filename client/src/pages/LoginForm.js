@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import Box from "@mui/material/Box";
+import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -16,15 +16,50 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const user = { email, password };
+
+    const response = await fetch("/api/users/login", {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await response.json();
+
+    if (!response.ok) {
+      setError(json.error);
+    }
+    if (response.ok) {
+      //save the user to local storage
+      setError(null);
+      setEmail("");
+      setPassword("");
+      localStorage.setItem("user", JSON.stringify(json));
+    }
+  };
+
   return (
     <Container>
       <section>
         <h1>Log In Now to get started!</h1>
       </section>
-      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+      <form sx={{ display: "flex", flexWrap: "wrap" }}>
         <div>
-          {/* TODO: add e-mail validation */}
-          <TextField label="email" id="email" sx={{ m: 1, width: "25ch" }} />
+          <TextField
+            label="email"
+            id="email"
+            sx={{ m: 1, width: "25ch" }}
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
           <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">
               Password
@@ -44,19 +79,34 @@ export default function LoginForm() {
                 </InputAdornment>
               }
               label="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
-            <Button size="large" href="#" variant="contained" color="secondary">
+            <Button
+              size="large"
+              href="#"
+              variant="contained"
+              color="secondary"
+              onClick={handleSubmit}
+            >
               Submit
             </Button>
           </FormControl>
         </div>
-      </Box>
-      <section className="redirect">
-      <p> Don't have an account yet?</p>
-      <Button className="btn" size="small" as={Link} to='/signup' variant="outlined" color="secondary">
-        Sign Up
-      </Button>
-      </section>
+        <section className="redirect">
+          <p> Don't have an account yet?</p>
+          <Button
+            className="btn"
+            size="small"
+            as={Link}
+            to="/signup"
+            variant="outlined"
+            color="secondary"
+          >
+            Sign Up
+          </Button>
+        </section>
+      </form>
     </Container>
   );
 }

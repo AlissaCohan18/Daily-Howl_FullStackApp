@@ -8,7 +8,10 @@ const {
   addFollower,
   removeFollower,
 } = require("../../controllers/user-controller");
-const { createUser} = require ('../../controllers/signing-controller')
+const {
+  createUser,
+  loginUser,
+} = require ('../../controllers/signing-controller');
 
 
 // Set up routes at /api/users
@@ -16,9 +19,14 @@ router
   .route("/")
   .get(getAllUsers)
   .post(createUser)
+
+// login route /api/users/login
+router
+  .route("/login")
+  .post(loginUser)
   
 // Set up routes at /api/users/:id
-  router
+router
   .route("/:id")
   .get(getUserById)
   .put(updateUser)
@@ -26,8 +34,8 @@ router
 
 // Set up routes at /api/users/:userId/follower/:followerId
 router
-.route("/:userId/follower/:followerId")
- .post(addFollower)
- .delete(removeFollower)
+  .route("/:userId/follower/:followerId")
+  .post(addFollower)
+  .delete(removeFollower)
 
   module.exports = router;
