@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogOut'
+import { useAuthContext } from '../hooks/useAuthContext'
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,6 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 const Navbar = () => {
 
   const { logout } = useLogout()
+  const { user } = useAuthContext()
 
   const handleClick = () => {
     logout()
@@ -41,9 +44,17 @@ const Navbar = () => {
           </Typography>
           {/* spacer */}
           <Typography sx={{ flexGrow: 500 }}></Typography>
+          {!user && (
+                <div>
           <Button className="btn" as={Link} to='/login' color="inherit">Login</Button>
           <Button className="btn" as={Link} to='/signup' color="inherit">Sign Up</Button>
+          </div>
+          )}
+          {user && (
+            <div>
           <Button onClick={handleClick} className="btn" as={Link} to='/' color="inherit">Log Out</Button>
+          </div>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
