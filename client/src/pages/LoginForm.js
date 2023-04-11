@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useState } from "react";
+import { useAuthContext } from '../hooks/useAuthContext'
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -19,6 +20,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const { dispatch } = useAuthContext()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,11 +40,15 @@ export default function LoginForm() {
       setError(json.error);
     }
     if (response.ok) {
-      //save the user to local storage
       setError(null);
       setEmail("");
       setPassword("");
+      //save the user to local storage
       localStorage.setItem("user", JSON.stringify(json));
+
+
+      // update the auth context
+      dispatch({type: 'LOGIN', payload: json})
     }
   };
 
@@ -91,6 +97,7 @@ export default function LoginForm() {
             >
               Submit
             </Button>
+            {error && <div>{error}</div>}
           </FormControl>
         </div>
         <section className="redirect">

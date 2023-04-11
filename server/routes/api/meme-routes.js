@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const requireAuth = require('../../middleware/requireAuth')
 
 const {
   getAllMemes,
@@ -11,6 +12,9 @@ const {
   addDislike,
   removeDislike
 } = require("../../controllers/meme-controller");
+
+//require auth for all meme routes
+router.use(requireAuth)
 
 // Set up routes at /api/memes
 router
