@@ -4,9 +4,9 @@
   "description": "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)",
   "main": "index.js",
   "dependencies": {
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "react-scripts": "^5.0.1"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "node server.js",
     "build": "react-scripts build",
