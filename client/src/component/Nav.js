@@ -52,6 +52,7 @@ const Navbar = () => {
           )}
           {user && (
             <div>
+          <Button className="btn search-btn" as={Link} to='/search' color="inherit">Search Picts</Button>
           <Button onClick={handleClick} className="btn" as={Link} to='/' color="inherit">Log Out</Button>
           </div>
           )}
