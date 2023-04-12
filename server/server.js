@@ -13,7 +13,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(require("./routes"));
 
 //connect to DB
-mongoose.connect(process.env.MONGODB_URI).then(() => {
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
   //listen for requests
   app.listen(PORT, () => console.log(`🌍 Connected to db & listening on Port: ${PORT}`));
 });
