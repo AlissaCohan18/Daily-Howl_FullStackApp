@@ -9,7 +9,7 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "cd server && npm start",
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
