@@ -4,6 +4,7 @@
   "description": "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)",
   "main": "index.js",
   "dependencies": {
+    "concurrently": "^8.0.1",
     "dotenv": "^16.0.3",
     "react-scripts": "^5.0.1"
   },
