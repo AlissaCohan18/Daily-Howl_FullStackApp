@@ -23,17 +23,17 @@ const MemeForm = ({selectedDogURL}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(memeText)
-    console.log(user.email)
-    const userEmail = user.email
-    const meme = { memeText, userEmail, selectedDogURL };
-    console.log(selectedDogURL)
+    const username = user.username
+    const meme = { memeText, username, memeUrl:selectedDogURL };
+    console.log(meme)
+    console.log(user)
 
-    const response = await fetch("/api/memes/:userId", {
+    const response = await fetch(`/api/memes/${user.userId}`, {
       method: "POST",
       body: JSON.stringify(meme),
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${user.token}`
       },
     });
     const json = await response.json();
