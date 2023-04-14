@@ -52,7 +52,9 @@ const SearchPictures = () => {
           onFwdClick={arrowForwardHandler}
           apiCall={showPicture}
         />
-        <MemeForm />
+        <MemeForm
+         selectedDogURL={dogData[picturePosition].url}
+         />
         </div>
       )}
      

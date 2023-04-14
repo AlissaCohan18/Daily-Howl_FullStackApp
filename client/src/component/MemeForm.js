@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import { Container, Button } from "@mui/material";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const MemeForm = () => {
+const MemeForm = ({selectedDogURL}) => {
   const { user } = useAuthContext();
   const [isMeme, setIsMeme] = useState(false);
   const [memeText, setMemeText] = useState("");
@@ -23,16 +23,17 @@ const MemeForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(memeText)
-    console.log(user.email)
-    const userEmail = user.email
-    const meme = { memeText, userEmail };
+    const username = user.username
+    const meme = { memeText, username, memeUrl:selectedDogURL };
+    console.log(meme)
+    console.log(user)
 
-    const response = await fetch("/api/memes/:userId", {
+    const response = await fetch(`/api/memes/${user.userId}`, {
       method: "POST",
       body: JSON.stringify(meme),
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${user.token}`
       },
     });
     const json = await response.json();
