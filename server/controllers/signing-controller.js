@@ -16,8 +16,6 @@ const createUser = async (req, res) => {
     // create a token
     const token = createToken(user._id)
     const userId = user._id
-    const username  = user.username
-
 
     res.status(200).json({email, token, userId, username})
   } catch (error) {
