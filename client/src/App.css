@@ -65,3 +65,13 @@
 .memeContainer {
   text-align: center;
 }
+
+.likes-btn {
+  margin: 10px;
+  color: rgb(0, 149, 255);
+}
+
+.likes-btn:hover {
+  cursor: pointer;
+ 
+}

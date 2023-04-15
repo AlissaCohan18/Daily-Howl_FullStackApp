@@ -45,7 +45,7 @@ const Navbar = () => {
           {/* spacer */}
           <Typography sx={{ flexGrow: 500 }}></Typography>
           {!user && (
-                <div>
+            <div>
           <Button className="btn" as={Link} to='/login' color="inherit">Login</Button>
           <Button className="btn" as={Link} to='/signup' color="inherit">Sign Up</Button>
           </div>
@@ -53,6 +53,7 @@ const Navbar = () => {
           {user && (
             <div>
            <Button className="btn search-btn" as={Link} to='/dashboard' color="inherit">My Dashboard</Button>
+              <Button className="btn search-btn" as={Link} to='/all-memes' color="inherit">All Memes</Button>
           <Button className="btn search-btn" as={Link} to='/search' color="inherit">Search Picts</Button>
           <Button onClick={handleClick} className="btn" as={Link} to='/' color="inherit">Log Out</Button>
           </div>
@@ -64,3 +65,4 @@ const Navbar = () => {
 }
 
 export default Navbar;
+
