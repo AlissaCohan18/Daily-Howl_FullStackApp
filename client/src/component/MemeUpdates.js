@@ -7,11 +7,13 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 
-const MemeUpdates = ({ meme, user, isDashboard }) => {
+const MemeUpdates = ({ meme, user, isDashboard, refresh }) => {
   const [createdMeme, setCreatedMeme] = useState("");
   const [likeCount, setLikeCount] = useState();
   const [isLikedByUser, setIsLikedByUser] = useState(true);
   const [createdMemeText, setCreatedMemeText] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     if (isDashboard) {
@@ -83,19 +85,27 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
         Authorization: `Bearer ${user.token}`,
       },
     });
+    setIsEditing(false);
   };
-
   const handleDeleteMeme = async () => {
-    const updatedText = { memeText: createdMemeText };
+    setIsDeleting(true);
     // need to use createdMeme here since meme is a string when on dashboard
-    await fetch(`/api/memes/${createdMeme._id}`, {
-      method: "PUT",
-      body: JSON.stringify(updatedText),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      `/api/memes/${user.userId}/${createdMeme._id}`,
+      {
+        method: "DELETE",
+        body: JSON.stringify(),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+    if (response.ok) {
+      //refresh page after deleting a meme
+      refresh();
+      setIsDeleting(false);
+    }
   };
 
   const handleUnlike = async () => {
@@ -120,14 +130,17 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
     }
   };
 
-  
-
   return (
     <Box className="pictureCard">
       {isDashboard ? (
         // Dashboard
         <Paper elevation={2}>
-          <img src={createdMeme.memeUrl} className="main-photo" alt="dog" style={{marginTop: "24px"}} />
+          <img
+            src={createdMeme.memeUrl}
+            className="main-photo"
+            alt="dog"
+            style={{ marginTop: "24px" }}
+          />
           <Typography
             variant="h5"
             component="p"
@@ -136,18 +149,30 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
             Likes: {likeCount}
           </Typography>
           <div>
-            <TextField
-              label="meme text"
-              id="meme text"
-              sx={{ m: 1, width: "25ch" }}
-              onChange={(e) => setCreatedMemeText(e.target.value)}
-              value={createdMemeText}
-            />
+            {isEditing ? (
+              <TextField
+                label="meme text"
+                id="meme text"
+                sx={{ m: 1, width: "25ch" }}
+                onChange={(e) => setCreatedMemeText(e.target.value)}
+                value={createdMemeText}
+              />
+            ) : (
+              <p>{createdMemeText}</p>
+            )}
           </div>
-          <div style={{marginBottom: "24px"}}>
-          <Button onClick={handleSave}>Save Update</Button>
-          <Button onClick={handleDeleteMeme}>Delete Meme</Button>
-          </div>
+          {isDeleting ? (
+            <p>Deleting...</p>
+          ) : (
+            <div style={{ marginBottom: "24px" }}>
+              <Button
+                onClick={isEditing ? handleSave : () => setIsEditing(true)}
+              >
+                {isEditing ? "Save Update" : "Edit Post"}
+              </Button>
+              <Button onClick={handleDeleteMeme}>Delete Meme</Button>
+            </div>
+          )}
         </Paper>
       ) : (
         //All Memes

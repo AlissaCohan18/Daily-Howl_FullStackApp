@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
-import { green } from "@mui/material/colors";
+import { purple } from "@mui/material/colors";
 import Fab from "@mui/material/Fab";
 import CheckIcon from "@mui/icons-material/Check";
 import PetsIcon from "@mui/icons-material/Pets";
@@ -13,9 +13,9 @@ export default function PawSpinner() {
 
   const buttonSx = {
     ...(success && {
-      bgcolor: green[500],
+      bgcolor: purple[500],
       "&:hover": {
-        bgcolor: green[700],
+        bgcolor: purple[700],
       },
     }),
   };
@@ -52,7 +52,7 @@ export default function PawSpinner() {
           <CircularProgress
             size={68}
             sx={{
-              color: green[500],
+              color: purple[500],
               position: "absolute",
               top: -6,
               left: -6,
