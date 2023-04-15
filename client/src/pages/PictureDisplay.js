@@ -20,12 +20,11 @@ const SearchPictures = () => {
     showPicture();
   }, []);
 
-  const api =
-    process.env.REACT_APP_API_DOG;
-    console.log(api)
+  const apiKey =
+    process.env.REACT_APP_DOG_API_KEY;
   const showPicture = () => {
     setPicturePosition(0);
-    fetch(api)
+    fetch(`https://api.thedogapi.com/v1/images/search?limit=10&api_key=${apiKey}`)
       .then((response) => response.json())
       .then((data) => {
         setDogData(data);

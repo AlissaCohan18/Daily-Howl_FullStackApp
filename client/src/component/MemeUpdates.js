@@ -3,6 +3,9 @@ import Button from "@mui/material/Button";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 
 const MemeUpdates = ({ meme, user, isDashboard }) => {
   const [createdMeme, setCreatedMeme] = useState("");
@@ -82,16 +85,32 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
     });
   };
 
-  const handleUnlike = async () => {
-    // need to use meme here since meme is an object when on All Memes
-    const response = await fetch(`/api/memes/${meme._id}/like/${user.username}`, {
-      method: "DELETE",
-      body: JSON.stringify(),
+  const handleDeleteMeme = async () => {
+    const updatedText = { memeText: createdMemeText };
+    // need to use createdMeme here since meme is a string when on dashboard
+    await fetch(`/api/memes/${createdMeme._id}`, {
+      method: "PUT",
+      body: JSON.stringify(updatedText),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
     });
+  };
+
+  const handleUnlike = async () => {
+    // need to use meme here since meme is an object when on All Memes
+    const response = await fetch(
+      `/api/memes/${meme._id}/like/${user.username}`,
+      {
+        method: "DELETE",
+        body: JSON.stringify(),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
 
     const json = await response.json();
 
@@ -99,41 +118,76 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
       setLikeCount(json.likeCount);
       setIsLikedByUser(true);
     }
-  }
+  };
+
+  
 
   return (
-    <div className="pictureCard">
-      <img src={createdMeme.memeUrl} className="main-photo" alt="dog" />
-      <p>Likes: {likeCount}</p>
+    <Box className="pictureCard">
       {isDashboard ? (
-        <div>
-          <TextField
-            label="meme text"
-            id="meme text"
-            sx={{ m: 1, width: "25ch" }}
-            onChange={(e) => setCreatedMemeText(e.target.value)}
-            value={createdMemeText}
-          />
+        // Dashboard
+        <Paper elevation={2}>
+          <img src={createdMeme.memeUrl} className="main-photo" alt="dog" style={{marginTop: "24px"}} />
+          <Typography
+            variant="h5"
+            component="p"
+            sx={{ marginTop: "12px", marginBottom: "12px" }}
+          >
+            Likes: {likeCount}
+          </Typography>
+          <div>
+            <TextField
+              label="meme text"
+              id="meme text"
+              sx={{ m: 1, width: "25ch" }}
+              onChange={(e) => setCreatedMemeText(e.target.value)}
+              value={createdMemeText}
+            />
+          </div>
+          <div style={{marginBottom: "24px"}}>
           <Button onClick={handleSave}>Save Update</Button>
-        </div>
+          <Button onClick={handleDeleteMeme}>Delete Meme</Button>
+          </div>
+        </Paper>
       ) : (
-        <div>
-          <p>{createdMeme.username}</p>
-          <p>{createdMeme.memeText}</p>
+        //All Memes
+        <Paper elevation={2}>
+          <Typography
+            variant="h7"
+            sx={{ marginTop: "12px", marginBottom: "12px" }}
+          >
+            <img src={createdMeme.memeUrl} className="main-photo" alt="dog" />
+            {createdMeme.username}
+          </Typography>
+          <Typography
+            variant="h5"
+            sx={{ marginTop: "12px", marginBottom: "12px" }}
+          >
+            {createdMeme.memeText}
+          </Typography>
+          <Typography
+            variant="p"
+            component="h4"
+            sx={{ marginTop: "12px", marginBottom: "12px" }}
+          >
+            Likes: {likeCount}
+          </Typography>
           {isLikedByUser ? (
             <ThumbUpOffAltIcon
               className="likes-btn"
               onClick={handleLike}
+              sx={{ fontSize: "30px" }}
             ></ThumbUpOffAltIcon>
           ) : (
             <ThumbUpIcon
               className="likes-btn"
               onClick={handleUnlike}
+              sx={{ fontSize: "30px" }}
             ></ThumbUpIcon>
           )}
-        </div>
+        </Paper>
       )}
-    </div>
+    </Box>
   );
 };
 
