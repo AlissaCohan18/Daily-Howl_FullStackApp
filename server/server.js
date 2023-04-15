@@ -13,10 +13,12 @@ app.use(express.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')))
+  //added for herkou (crashed on refresh)
   app.get("/*", function(req, res) {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 }
+
 
 app.use(require("./routes"));
 
@@ -31,5 +33,3 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 //log mongo queries being executed
 mongoose.set("debug", true);
-
-// if we're in production, serve client/build as static assets
