@@ -3,37 +3,37 @@ import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import { Container, Button } from "@mui/material";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
-const MemeForm = ({selectedDogURL}) => {
+const MemeForm = ({ selectedDogURL }) => {
   const { user } = useAuthContext();
   const [isMeme, setIsMeme] = useState(false);
   const [memeText, setMemeText] = useState("");
   const [error, setError] = useState(null);
-  
+  const navigate = useNavigate();
+
   const memeAdded = (e) => {
-    // console.log(e);
+  
     if (e !== "") {
       setIsMeme(true);
-      setMemeText(e)
+      setMemeText(e);
     } else {
       setIsMeme(false);
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const username = user.username
-    const meme = { memeText, username, memeUrl:selectedDogURL };
-    console.log(meme)
-    console.log(user)
+    const username = user.username;
+    const meme = { memeText, username, memeUrl: selectedDogURL };
+    
 
     const response = await fetch(`/api/memes/${user.userId}`, {
       method: "POST",
       body: JSON.stringify(meme),
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${user.token}`
+        Authorization: `Bearer ${user.token}`,
       },
     });
     const json = await response.json();
@@ -44,6 +44,8 @@ const MemeForm = ({selectedDogURL}) => {
     if (response.ok) {
       setError(null);
       setMemeText("");
+      //redirect to dashboard
+      navigate("/dashboard");
     }
   };
 
@@ -53,6 +55,7 @@ const MemeForm = ({selectedDogURL}) => {
         <TextField
           onChange={(e) => memeAdded(e.target.value)}
           label="meme"
+          value={memeText}
           sx={{ m: 1, width: "25ch" }}
         />
       </div>

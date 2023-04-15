@@ -8,12 +8,10 @@ const SearchPictures = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const arrowBackHandler = () => {
-    console.log("back click");
     setPicturePosition(picturePosition - 1);
   };
 
   const arrowForwardHandler = () => {
-    console.log("forward click");
     setPicturePosition(picturePosition + 1);
   };
 
@@ -33,11 +31,8 @@ const SearchPictures = () => {
         setIsLoading(false);
       })
       .catch((e) => {
-        console.log(e);
       });
   };
-
-  console.log(dogData);
 
   return (
     <div>

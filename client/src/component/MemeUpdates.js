@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 
 const MemeUpdates = ({ meme, user, isDashboard }) => {
   const [createdMeme, setCreatedMeme] = useState("");
-  const [likeCount, setLikeCount] = useState(0);
+  const [likeCount, setLikeCount] = useState();
   const [isLikedByUser, setIsLikedByUser] = useState(true);
 
   useEffect(() => {
@@ -14,16 +15,18 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
       setCreatedMeme(meme);
       checkIfUserLikedMeme();
     }
-
-    setLikeCount(meme.likeCount);
   }, []);
 
+  useEffect(() => {
+    setLikeCount(createdMeme.likeCount);
+  }, [createdMeme]);
+
   const checkIfUserLikedMeme = () => {
-    meme.likes.map((like)=>{
-      if(like.username===user.username){
-       setIsLikedByUser(false)
+    meme.likes.map((like) => {
+      if (like.username === user.username) {
+        setIsLikedByUser(false);
       }
-    })
+    });
   };
 
   const fetchMemes = async () => {
@@ -55,7 +58,6 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
     });
 
     const json = await response.json();
-    console.log(json.likeCount);
 
     if (response.ok) {
       setLikeCount(json.likeCount);
@@ -71,7 +73,7 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
     <div className="pictureCard">
       <img src={createdMeme.memeUrl} className="main-photo" alt="dog" />
       <p>{createdMeme.memeText}</p>
-      <p>{likeCount}</p>
+      <p>Likes: {likeCount}</p>
       {isDashboard ? (
         <div>
           <Button onClick={handleEdit}>edit meme</Button>
@@ -79,7 +81,12 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
       ) : (
         <div>
           <p>{createdMeme.username}</p>
-         {isLikedByUser && <ThumbUpIcon className="likes-btn" onClick={handleLike}></ThumbUpIcon>}
+          {isLikedByUser && (
+            <ThumbUpIcon
+              className="likes-btn"
+              onClick={handleLike}
+            ></ThumbUpIcon>
+          )}
         </div>
       )}
     </div>

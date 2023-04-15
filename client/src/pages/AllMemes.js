@@ -27,7 +27,6 @@ const AllMemes = () => {
     }
   };
 
-  console.log(memes);
   return (
     <div>
       <h1>All Memes</h1>

@@ -71,7 +71,15 @@
   color: rgb(0, 149, 255);
 }
 
+.remove-likes-btn {
+  margin: 10px;
+  color: rgb(255, 77, 0);
+}
+
 .likes-btn:hover {
   cursor: pointer;
- 
+}
+
+.remove-likes-btn:hover {
+  cursor: pointer;
 }
