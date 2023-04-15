@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Photo from "../component/Photo";
 import MemeForm from "../component/MemeForm";
+import PawSpinner from "../component/PawSpinner";
 
 const SearchPictures = () => {
   const [dogData, setDogData] = useState(null);
@@ -23,36 +24,38 @@ const SearchPictures = () => {
     process.env.REACT_APP_DOG_API_URL + process.env.REACT_APP_DOG_API_KEY;
 
   const showPicture = () => {
-    setPicturePosition(0)
+    setPicturePosition(0);
     fetch(api)
       .then((response) => response.json())
       .then((data) => {
         setDogData(data);
         setIsLoading(false);
       })
-      .catch((e) => {
-      });
+      .catch((e) => {});
   };
 
   return (
     <div>
       <h1>Search Pup Pics!</h1>
-      {isLoading && <p>...Loading</p>}
-      {dogData && (<div>
-        <Photo
-          props={dogData[picturePosition].url}
-          isFirstImage={picturePosition === 0 ? false : true}
-          isLastImage={picturePosition === 9 ? false : true}
-          onBckClick={arrowBackHandler}
-          onFwdClick={arrowForwardHandler}
-          apiCall={showPicture}
-        />
-        <MemeForm
-         selectedDogURL={dogData[picturePosition].url}
-         />
+      {isLoading && (
+        <div>
+          <PawSpinner />
+          <p>Loading...</p>
         </div>
       )}
-     
+      {dogData && (
+        <div>
+          <Photo
+            props={dogData[picturePosition].url}
+            isFirstImage={picturePosition === 0 ? false : true}
+            isLastImage={picturePosition === 9 ? false : true}
+            onBckClick={arrowBackHandler}
+            onFwdClick={arrowForwardHandler}
+            apiCall={showPicture}
+          />
+          <MemeForm selectedDogURL={dogData[picturePosition].url} />
+        </div>
+      )}
     </div>
   );
 };

@@ -21,7 +21,7 @@ const AllMemes = () => {
     const json = await response.json();
 
     if (response.ok) {
-      const filterData = json.filter((meme)=> meme.username !== user.username)
+      const filterData = json.filter((meme) => meme.username !== user.username);
 
       setMemes(filterData);
     }
@@ -32,9 +32,9 @@ const AllMemes = () => {
       <h1>All Memes</h1>
       {memes &&
         memes.map((meme, index) => (
-        <div key={index}>
+          <div key={index}>
             <MemeUpdates meme={meme} user={user} isDashboard={false} />
-      </div>
+          </div>
         ))}
     </div>
   );

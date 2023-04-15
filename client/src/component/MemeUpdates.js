@@ -104,7 +104,6 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
   return (
     <div className="pictureCard">
       <img src={createdMeme.memeUrl} className="main-photo" alt="dog" />
-
       <p>Likes: {likeCount}</p>
       {isDashboard ? (
         <div>
