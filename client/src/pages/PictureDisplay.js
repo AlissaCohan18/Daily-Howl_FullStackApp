@@ -22,7 +22,7 @@ const SearchPictures = () => {
 
   const api =
     process.env.REACT_APP_DOG_API_URL + process.env.REACT_APP_DOG_API_KEY;
-
+    console.log(api)
   const showPicture = () => {
     setPicturePosition(0);
     fetch(api)
