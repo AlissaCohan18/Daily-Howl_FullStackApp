@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import TextField from "@mui/material/TextField";
 
 const MemeUpdates = ({ meme, user, isDashboard }) => {
   const [createdMeme, setCreatedMeme] = useState("");
   const [likeCount, setLikeCount] = useState();
   const [isLikedByUser, setIsLikedByUser] = useState(true);
+  const [createdMemeText, setCreatedMemeText] = useState("");
 
   useEffect(() => {
     if (isDashboard) {
@@ -19,6 +21,7 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
 
   useEffect(() => {
     setLikeCount(createdMeme.likeCount);
+    setCreatedMemeText(createdMeme.memeText);
   }, [createdMeme]);
 
   const checkIfUserLikedMeme = () => {
@@ -48,6 +51,7 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
 
   const handleLike = async () => {
     const like = { likeBody: true, username: user.username };
+    // need to use meme here since meme is an object when on All Memes
     const response = await fetch(`/api/memes/${meme._id}/like`, {
       method: "PUT",
       body: JSON.stringify(like),
@@ -65,22 +69,39 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
     }
   };
 
-  const handleEdit = () => {
-    console.log("edit my meme");
+  const handleSave = async () => {
+    const updatedText = { memeText: createdMemeText };
+    // need to use createdMeme here since meme is a string when on dashboard
+    await fetch(`/api/memes/${createdMeme._id}`, {
+      method: "PUT",
+      body: JSON.stringify(updatedText),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
   };
 
   return (
     <div className="pictureCard">
       <img src={createdMeme.memeUrl} className="main-photo" alt="dog" />
-      <p>{createdMeme.memeText}</p>
+
       <p>Likes: {likeCount}</p>
       {isDashboard ? (
         <div>
-          <Button onClick={handleEdit}>edit meme</Button>
+          <TextField
+            label="meme text"
+            id="meme text"
+            sx={{ m: 1, width: "25ch" }}
+            onChange={(e) => setCreatedMemeText(e.target.value)}
+            value={createdMemeText}
+          />
+          <Button onClick={handleSave}>Save Update</Button>
         </div>
       ) : (
         <div>
           <p>{createdMeme.username}</p>
+          <p>{createdMeme.memeText}</p>
           {isLikedByUser && (
             <ThumbUpIcon
               className="likes-btn"

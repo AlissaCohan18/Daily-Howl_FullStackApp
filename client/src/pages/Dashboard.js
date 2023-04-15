@@ -7,9 +7,10 @@ const Dashboard = () => {
   const [userObject, setUserObject] = useState(user);
 
   useEffect(() => {
-    if(user){
-    fetchUserObj();}
-    }, [user]);
+    if (user) {
+      fetchUserObj();
+    }
+  }, [user]);
 
   const fetchUserObj = async () => {
     const response = await fetch(`/api/users/${user.userId}`, {
@@ -25,11 +26,10 @@ const Dashboard = () => {
 
     if (response.ok) {
       setUserObject(json);
-
     }
   };
 
-return (
+  return (
     <div>
       <h1>Your Dashboard</h1>
       {userObject &&
