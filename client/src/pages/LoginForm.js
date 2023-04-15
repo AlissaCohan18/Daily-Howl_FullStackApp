@@ -101,6 +101,10 @@ export default function LoginForm() {
           </FormControl>
         </div>
         <section className="redirect">
+          <br></br>
+          <br></br>
+          <br></br>
+
           <p> Don't have an account yet?</p>
           <Button
             className="btn"

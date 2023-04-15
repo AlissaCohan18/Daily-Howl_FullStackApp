@@ -9,8 +9,6 @@ const {
   updateMeme,
   addLike,
   removeLike,
-  addDislike,
-  removeDislike
 } = require("../../controllers/meme-controller");
 
 //require auth for all meme routes
@@ -42,19 +40,9 @@ router
   .route("/:memeId/like")  
   .put(addLike);
 
-//  /api/memes/:memeId/like/:likeId
+//  /api/memes/:memeId/like/:username
 router
-  .route("/:memeId/like/:likeId")
+  .route("/:memeId/like/:username")
   .delete(removeLike);
-
-  //  /api/memes/:memeId/dislike
-router
-.route("/:memeId/dislike")  
-.put(addDislike);
-
-//  /api/memes/:memeId/dislike/:dislikeId
-router
-.route("/:memeId/dislike/:dislikeId")
-.delete(removeDislike);
 
 module.exports = router;

@@ -1,28 +1,43 @@
+import MemeUpdates from "../component/MemeUpdates";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useEffect, useState } from "react";
-import Photo from "../component/Photo";
-import MemeForm from "../component/MemeForm";
 
 const Dashboard = () => {
- 
-    const [users, setUsers] = useState(null);
+  const { user } = useAuthContext();
+  const [userObject, setUserObject] = useState(user);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await fetch("/api/users");
-      const json = await response.json();
+    if (user) {
+      fetchUserObj();
+    }
+  }, [user]);
 
-      if (response.ok) {
-        setUsers(json);
-      }
-    };
+  const fetchUserObj = async () => {
+    const response = await fetch(`/api/users/${user.userId}`, {
+      method: "GET",
+      body: JSON.stringify(),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
-    fetchUsers();
-  }, []);
+    const json = await response.json();
+
+    if (response.ok) {
+      setUserObject(json);
+    }
+  };
 
   return (
     <div>
       <h1>Your Dashboard</h1>
-      {users && users.map((user) => <p key={user._id}>{user.email}</p>)}
+      {userObject &&
+        userObject.memes.map((meme, index) => (
+          <div key={index}>
+            <MemeUpdates meme={meme} user={user} isDashboard={true} />
+          </div>
+        ))}
     </div>
   );
 };

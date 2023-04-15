@@ -30,33 +30,6 @@ const LikeSchema = new Schema(
   }
 );
 
-const DislikeSchema = new Schema(
-  {
-    //set custom id to avoid confusion with parent meme_id
-    dislikeId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
-    dislikeBody: {
-      type: Boolean,
-      required: true,
-    },
-    username: {
-      type: String,
-      required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: (createdAtVal) => dateFormat(createdAtVal),
-    },
-  },
-  {
-    toJSON: {
-      getters: true,
-    },
-  }
-);
 
 const MemeSchema = new Schema({
   memeText: {
@@ -78,9 +51,8 @@ const MemeSchema = new Schema({
     type: String,
     required: true,
   },
- // associate Likes and Dislikes with Memes
+ // associate Likes with Memes
  likes: [LikeSchema],
- dislikes: [DislikeSchema],
 },
 {
   toJSON: {
@@ -95,9 +67,6 @@ MemeSchema.virtual("likeCount").get(function () {
   return this.likes.length;
 });
 
-MemeSchema.virtual("dislikeCount").get(function () {
-  return this.dislikes.length;
-});
 
 // create the Meme model using the MemeSchema
 const Meme = model("Meme", MemeSchema);
