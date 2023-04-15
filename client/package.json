@@ -1,9 +1,9 @@
-{ 
-"name": "daily-howl",
-"version": "0.1.0",
-"private": true,
-"proxy": "http://localhost:3001",
-"dependencies": {
+{
+  "name": "daily-howl",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "https://daily-howl-app.herokuapp.com/",
+  "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",
