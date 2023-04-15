@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import TextField from "@mui/material/TextField";
 
 const MemeUpdates = ({ meme, user, isDashboard }) => {
@@ -82,6 +82,25 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
     });
   };
 
+  const handleUnlike = async () => {
+    // need to use meme here since meme is an object when on All Memes
+    const response = await fetch(`/api/memes/${meme._id}/like/${user.username}`, {
+      method: "DELETE",
+      body: JSON.stringify(),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    const json = await response.json();
+
+    if (response.ok) {
+      setLikeCount(json.likeCount);
+      setIsLikedByUser(true);
+    }
+  }
+
   return (
     <div className="pictureCard">
       <img src={createdMeme.memeUrl} className="main-photo" alt="dog" />
@@ -102,10 +121,15 @@ const MemeUpdates = ({ meme, user, isDashboard }) => {
         <div>
           <p>{createdMeme.username}</p>
           <p>{createdMeme.memeText}</p>
-          {isLikedByUser && (
-            <ThumbUpIcon
+          {isLikedByUser ? (
+            <ThumbUpOffAltIcon
               className="likes-btn"
               onClick={handleLike}
+            ></ThumbUpOffAltIcon>
+          ) : (
+            <ThumbUpIcon
+              className="likes-btn"
+              onClick={handleUnlike}
             ></ThumbUpIcon>
           )}
         </div>

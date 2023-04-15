@@ -103,44 +103,17 @@ const memeController = {
       .catch((err) => res.json(err));
   },
 
-  //Remove a like by its ID    (DELETE /api/memes/:memeId/:likeId)
+  //Remove a like by its ID    (DELETE /api/memes/:memeId/:username)
   removeLike({ params }, res) {
     Meme.findOneAndUpdate(
       { _id: params.memeId },
-      { $pull: { likes: { likeId: params.likeId } } },
+      { $pull: { likes: { username: params.username } } },
       { new: true }
     )
       .then((dbData) => res.json(dbData))
       .catch((err) => res.json(err));
   },
 
-  //Create a dislike to a Meme, stored in that meme's dislike array  (PUT /api/memes/:memeId/dislike)
-  addDislike({ params, body }, res) {
-    Meme.findOneAndUpdate(
-      { _id: params.memeId },
-      { $push: { dislikes: body } },
-      { new: true, runValidators: true }
-    )
-      .then((dbData) => {
-        if (!dbData) {
-          res.status(404).json({ message: "No Memes found with this id!" });
-          return;
-        }
-        res.json(dbData);
-      })
-      .catch((err) => res.json(err));
-  },
-
-  //Remove a dislike by its ID    (DELETE /api/memes/:memeId/:dislikeId)
-  removeDislike({ params }, res) {
-    Meme.findOneAndUpdate(
-      { _id: params.memeId },
-      { $pull: { dislikes: { dislikeId: params.dislikeId } } },
-      { new: true }
-    )
-      .then((dbData) => res.json(dbData))
-      .catch((err) => res.json(err));
-  },
 };
 
 module.exports = memeController;
