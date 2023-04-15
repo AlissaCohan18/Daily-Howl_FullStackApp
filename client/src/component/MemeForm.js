@@ -7,21 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 const MemeForm = ({ selectedDogURL }) => {
   const { user } = useAuthContext();
-  const [isMeme, setIsMeme] = useState(false);
   const [memeText, setMemeText] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const memeAdded = (e) => {
-  
-    if (e !== "") {
-      setIsMeme(true);
-      setMemeText(e);
-    } else {
-      setIsMeme(false);
-    }
-  };
-
+    console.log(memeText)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const username = user.username;
@@ -53,7 +43,7 @@ const MemeForm = ({ selectedDogURL }) => {
     <Container className="memeContainer">
       <div>
         <TextField
-          onChange={(e) => memeAdded(e.target.value)}
+          onChange={(e) => setMemeText(e.target.value)}
           label="meme"
           value={memeText}
           sx={{ m: 1, width: "25ch" }}
@@ -62,7 +52,7 @@ const MemeForm = ({ selectedDogURL }) => {
       <Button
         className="btn"
         size="small"
-        disabled={!isMeme}
+        disabled={memeText === ""}
         variant="outlined"
         color="secondary"
         onClick={handleSubmit}
