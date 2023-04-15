@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from "../hooks/useAuthContext";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -20,12 +20,13 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const { dispatch } = useAuthContext()
+  const { dispatch } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user = { email, password };
+    const lowerEmail = email.toLowerCase();
+    const user = { email: lowerEmail, password };
 
     const response = await fetch("/api/users/login", {
       method: "POST",
@@ -46,9 +47,8 @@ export default function LoginForm() {
       //save the user to local storage
       localStorage.setItem("user", JSON.stringify(json));
 
-
       // update the auth context
-      dispatch({type: 'LOGIN', payload: json})
+      dispatch({ type: "LOGIN", payload: json });
     }
   };
 

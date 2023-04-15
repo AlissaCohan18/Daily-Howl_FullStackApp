@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from "../hooks/useAuthContext";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -20,13 +20,13 @@ export default function SingUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const { dispatch } = useAuthContext()
+  const { dispatch } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user = { username, email, password };
-
+    const lowerEmail = email.toLowerCase();
+    const user = { username, email: lowerEmail, password };
     const response = await fetch("/api/users", {
       method: "POST",
       body: JSON.stringify(user),
@@ -34,6 +34,7 @@ export default function SingUpForm() {
         "Content-Type": "application/json",
       },
     });
+
     const json = await response.json();
 
     if (!response.ok) {
@@ -46,10 +47,10 @@ export default function SingUpForm() {
       setPassword("");
 
       // save the user to local storage
-      localStorage.setItem('user', JSON.stringify(json))
+      localStorage.setItem("user", JSON.stringify(json));
 
       // update the auth context
-      dispatch({type: 'LOGIN', payload: json})
+      dispatch({ type: "LOGIN", payload: json });
     }
   };
 
