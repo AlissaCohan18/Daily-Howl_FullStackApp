@@ -3,7 +3,7 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Description:
-
+This fun interactive application allows users to look through pictures of dogs, and add text to them to create a meme. From your dashboard, you can view the memes you've created, see how many likes they've gotten, update the meme text, or delete the memes all together. Logged in users will be able to view all of the memes fellow users have created and may 'like' them! If you like a meme by accident, no worries... just press the thumb again to remove the like.
 
 ## Built With
 * React
@@ -17,13 +17,12 @@
 * Server API
 
 ## Deployed Application URL
-coming soon...
+https://daily-howl-app.herokuapp.com/
 
 
 ## Screenshot
-coming soon...
-![](/client//public/favicon2.png)
-
+![](/client/src/assets/snip2.png)<br>
+![](/client/src/assets/snip1.png) 
 
 
 
@@ -31,7 +30,7 @@ coming soon...
 MIT:  https://opensource.org/licenses/MIT
 
 ## Contributing
-N/A
+Special thanks to https://thedogapi.com/ for providing pictures of adorable pups!
 
 
 ## Questions
